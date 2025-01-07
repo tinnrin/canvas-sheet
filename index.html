@@ -6,6 +6,11 @@
     <title>Document</title>
   </head>
   <body>
+    <label>
+      coordinates from left to top (x1,y1,x2,y2,x3,y3,x4,y4)
+      <input type="text" class="input-x" />
+    </label>
+    <button class="input-save">save</button>
     <canvas id="canvas" width="500" height="500"></canvas>
 
     <script>
@@ -49,17 +54,17 @@
 
       const canvS = canvas.getBoundingClientRect();
 
-      const canvOffset = translate(canvS.x, canvS.y)
+      const canvOffset = translate(canvS.x, canvS.y);
 
-      console.log(canvS)
+      console.log(canvS);
       canvas.onclick = (e) => {
-        console.log(canvas.getBoundingClientRect())
+        console.log(canvas.getBoundingClientRect());
 
         // console.log(e)
         // console.log(document.documentElement.scrollLeft) //x
         // console.log(document.documentElement.scrollTop) //y
-        console.log('pageX, pageY', e.pageX, e.pageY)
-        console.log('pageX, pageY', e.pageX, e.pageY - canvas.offsetTop)
+        console.log("pageX, pageY", e.pageX, e.pageY);
+        console.log("pageX, pageY", e.pageX, e.pageY - canvas.offsetTop);
         // console.log('clientX, clientY', e.clientX, e.clientY)
         // // console.log('screenX, screenY', e.screenX, e.screenY)
         // console.log('x, y', e.x, e.y)
@@ -68,19 +73,36 @@
         // let shiftY = e.clientY - canvas.getBoundingClientRect().top;
 
         // console.log(shiftX, shiftY)
-        const arr = translate(e.pageX - canvas.offsetLeft, e.pageY - canvas.offsetTop);
+        const arr = translate(
+          e.pageX - canvas.offsetLeft,
+          e.pageY - canvas.offsetTop
+        );
 
         arr[0] = Math.floor(arr[0] - 250);
         arr[1] = Math.floor(arr[1] + 250);
 
-
         const arrSnap = snap(arr[0], arr[1]);
 
-        console.log('snap', arrSnap)
+        console.log("snap", arrSnap);
 
         ctx.fillStyle = getRndmColor();
         ctx.fillRect(arrSnap[1], arrSnap[0], 10, 10);
       };
+
+      const saveBtn = document.querySelector(".input-save");
+      const input = document.querySelector(".input-x");
+
+      saveBtn.onclick = ()=>{
+        const cords = input.value.split(",");
+
+        const width = cords[0] - cords[2];
+
+        const height = cords[1] - cords[5];
+        ctx.fillStyle = 'black'
+
+        ctx.fillRect(cords[0],cords[1],width,height)
+
+      }
     </script>
 
     <style>

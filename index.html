@@ -18,20 +18,49 @@
         ];
       }
 
+      function snap(x, y) {
+        const res = [x, y];
+
+        if (!Number.isInteger(x / 10)) {
+          res[0] = Math.trunc(x / 10) * 10;
+        }
+        if (!Number.isInteger(y / 10)) {
+          res[1] = Math.trunc(y / 10) * 10;
+        }
+
+        return res;
+      }
+
+      function getRndmColor() {
+        const r = Math.floor(Math.random() * 256);
+        const g = Math.floor(Math.random() * 256);
+        const b = Math.floor(Math.random() * 256);
+
+        const cssColor = "rgb(" + r + ", " + g + "," + b + ")";
+        return cssColor;
+      }
+
       var canvas = document.getElementById("canvas");
       var ctx = canvas.getContext("2d");
+      ctx.lineWidth = 1;
 
       ctx.fillStyle = "#929982";
       ctx.fillRect(0, 0, 500, 500);
 
       canvas.onclick = (e) => {
         const arr = translate(e.clientX, e.clientY);
-        arr[0] = arr[0] - 250;
-        arr[1] = arr[1] + 250;
+
+        console.log("tranlate", arr);
+        console.log(Math.floor(arr[0] - 250), Math.floor(arr[1] + 250));
+        arr[0] = Math.floor(arr[0] - 250);
+        arr[1] = Math.floor(arr[1] + 250);
 
         console.log(arr);
-        ctx.fillStyle = "black";
-        ctx.fillRect(arr[0], arr[1], 10, 10);
+
+        const arrSnap = snap(arr[0], arr[1]);
+
+        ctx.fillStyle = getRndmColor();
+        ctx.fillRect(arrSnap[0], arrSnap[1], 10, 10);
       };
     </script>
 
@@ -54,6 +83,7 @@
         height: 500px; */
         transform-origin: top left;
         transform: rotate(45deg) translate(250px, -250px);
+        image-rendering: pixelated;
       }
     </style>
   </body>

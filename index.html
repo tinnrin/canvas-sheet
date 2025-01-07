@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas id="canvas" width="500" height="500"></canvas>
+
+    <script>
+      function translate(x, y) {
+        const angle = -45;
+        const rad = (angle * Math.PI) / 180;
+        return [
+          x * Math.cos(rad) - y * Math.sin(rad),
+          y * Math.cos(rad) + x * Math.sin(rad),
+        ];
+      }
+
+      var canvas = document.getElementById("canvas");
+      var ctx = canvas.getContext("2d");
+
+      ctx.fillStyle = "#929982";
+      ctx.fillRect(0, 0, 500, 500);
+
+      canvas.onclick = (e) => {
+        const arr = translate(e.clientX, e.clientY);
+        arr[0] = arr[0] - 250;
+        arr[1] = arr[1] + 250;
+
+        console.log(arr);
+        ctx.fillStyle = "black";
+        ctx.fillRect(arr[0], arr[1], 10, 10);
+      };
+    </script>
+
+    <style>
+      *,
+      ::before,
+      ::after {
+        box-sizing: inherit;
+      }
+
+      html {
+        box-sizing: border-box;
+      }
+      body {
+        padding: 0;
+        margin: 0;
+      }
+      canvas {
+        /* width: 500px;
+        height: 500px; */
+        transform-origin: top left;
+        transform: rotate(45deg) translate(250px, -250px);
+      }
+    </style>
+  </body>
+</html>

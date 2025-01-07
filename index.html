@@ -6,6 +6,18 @@
     <title>Document</title>
   </head>
   <body>
+    <div>slkdfjlksdjlk</div>
+    <div>slkdfjlksdjlk</div>
+    <div>slkdfjlksdjlk</div>
+    <div>slkdfjlksdjlk</div>
+    <div>slkdfjlksdjlk</div>
+    <div>slkdfjlksdjlk</div>
+    <div>slkdfjlksdjlk</div>
+    <div>slkdfjlksdjlk</div>
+    <div>slkdfjlksdjlk</div>
+    <div>slkdfjlksdjlk</div>
+    <div>slkdfjlksdjlk</div>
+    <div>353, 2</div>
     <canvas id="canvas" width="500" height="500"></canvas>
 
     <script>
@@ -47,15 +59,32 @@
       ctx.fillStyle = "#929982";
       ctx.fillRect(0, 0, 500, 500);
 
-      canvas.onclick = (e) => {
-        const arr = translate(e.clientX, e.clientY);
+      const canvS = canvas.getBoundingClientRect();
 
-        console.log("tranlate", arr);
-        console.log(Math.floor(arr[0] - 250), Math.floor(arr[1] + 250));
+      const canvOffset = translate(canvS.x, canvS.y)
+
+      console.log(canvS)
+      canvas.onclick = (e) => {
+        console.log(canvas.getBoundingClientRect())
+
+        // console.log(e)
+        // console.log(document.documentElement.scrollLeft) //x
+        // console.log(document.documentElement.scrollTop) //y
+        console.log('pageX, pageY', e.pageX, e.pageY)
+        console.log('pageX, pageY', e.pageX, e.pageY - canvas.offsetTop)
+        // console.log('clientX, clientY', e.clientX, e.clientY)
+        // // console.log('screenX, screenY', e.screenX, e.screenY)
+        // console.log('x, y', e.x, e.y)
+
+        // let shiftX = e.clientX - canvas.getBoundingClientRect().left;
+        // let shiftY = e.clientY - canvas.getBoundingClientRect().top;
+
+        // console.log(shiftX, shiftY)
+        const arr = translate(e.pageX - canvas.offsetLeft, e.pageY - canvas.offsetTop);
+
         arr[0] = Math.floor(arr[0] - 250);
         arr[1] = Math.floor(arr[1] + 250);
 
-        console.log(arr);
 
         const arrSnap = snap(arr[0], arr[1]);
 
